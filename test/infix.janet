@@ -48,6 +48,15 @@
 (test-macaroni (1 + 2)
   (@+ 1 2))
 
+(test-macaroni (1 + 2 + 3)
+  (@+ 1 (@+ 2 3)))
+
+(test-macaroni (1 * 2)
+  (@* 1 2))
+
+(test-macaroni (1 * 2 * 3)
+  (@* (@* 1 2) 3))
+
 (test-macaroni (1 + 2 * 3)
   (@+ 1 (@* 2 3)))
 

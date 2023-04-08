@@ -24,7 +24,7 @@ This is a generalization of a regular macro, since a macaron that checks that th
 
 # operator sections
 
-For a simple example of something you can do with a macaron that you cannot do with a regular macro, consider [operator sections](http://wiki.haskell.org/Section_of_an_infix_operator). In this example, `+` and `>` have been redefined as macarons:
+For a simple example of something you can do with a macaron that you cannot do with a regular macro, consider [operator sections](http://wiki.haskell.org/Section_of_an_infix_operator). In this example, `+`, `-`, and `>` have been redefined as macarons:
 
 ```
 repl:1:> (1 + 2)
@@ -35,6 +35,8 @@ repl:3:> (plus-one 10)
 11
 repl:4:> (map (+ 1) [1 2 3])
 (2 3 4)
+repl:5:> (map (1 -) [0.2 0.5 0.6])
+(0.8 0.5 0.4)
 repl:5:> (all (> 0) [1 2 3])
 true
 ```
@@ -196,6 +198,8 @@ By rewriting that to a `finally`:
 
 The Gleam language [special-cases this kind of construct](https://gleam.run/book/tour/use.html) in a general way, which is neat. But with macarons, there is no need for any kind of special-case.
 
-# etc...
+# Infix operators
 
-We could keep going. Infix operators are an obvious one, although it's rather tricky to get precedence working. I think it can be done, but it's late and I haven't had time to try it yet.
+There is [a simple example in the tests](test/infix.janet) of implementing left- and right-associative infix operators, as well as operators with two levels of precedence.
+
+I *think* it's possible to implement arbitrary precedence infix operators with this technique, but I haven't attempted it yet.

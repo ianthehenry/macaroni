@@ -12,6 +12,18 @@ A macaron is a generalization of a regular macro, with three differences:
 - Macarons are first-class values, and macarons can return other macarons. This allows macarons to not only rewrite themselves, but also the forms in which they appear.
 - Macarons are dynamically scoped, so you can have macarons define private helper macarons for to use while expanding their arguments. (not yet implemented in any useful form)
 
+Macarons have two argument lists: the arguments "to the left" of the macro, and the arguments "to the right." For example, a macaron called `foo` would receive the following arguments if it appeared in the following positions:
+
+```janet
+(foo x y) # [] ['x 'y]
+(x foo y) # ['x] ['y]
+(x y foo) # ['x 'y] []
+```
+
+This is a generalization of a regular macro, since a macaron that checks that there are no nodes to the left of it is exactly a traditional `defmacro` macro.
+
+# operator sections
+
 For a simple example of something you can do with a macaron that you cannot do with a regular macro, consider [operator sections](http://wiki.haskell.org/Section_of_an_infix_operator). In this example, `+` and `>` have been redefined as macarons:
 
 ```
@@ -41,7 +53,7 @@ We can define such a "partially-applicable" macaron like this:
 
 Now you might be thinking: why? We can just write `|(+ $ 1)` and get exactly the same effect. Which is very true: operator sections aren't a compelling addition to Janet's syntax.
 
----
+# infix application
 
 Here's a weirder one. Consider the following Janet code:
 
@@ -116,7 +128,9 @@ I find this syntax very useful, and I'm very pleased by how easy it is to implem
   (g (f (x 1) 2 3) 4))
 ```
 
----
+This is a lot like the threading macro `->`, but it's easier for me to read and write.
+
+# `def`
 
 The original motivating use-case for macaroni was `def`.
 
@@ -144,7 +158,7 @@ Once again, the expansion goes like this:
 
 (And, of course, you can implement `let` in terms of `lambda`. And you can also implement `do` in terms of lambda, and have an incredibly small set of special forms. But... now is not the time for that. In Janet, `do` and `def` are special-forms, and `let` is actually implemented in terms of them. Which is perfectly pragmatic, but wouldn't you rather have a bizarre lambda calculus core surrounded by macro spaghetti?)
 
----
+# `defer`
 
 Another thing you can do with this is a `defer` "statement" that does not increase indentation:
 
@@ -182,6 +196,6 @@ By rewriting that to a `finally`:
 
 The Gleam language [special-cases this kind of construct](https://gleam.run/book/tour/use.html) in a general way, which is neat. But with macarons, there is no need for any kind of special-case.
 
----
+# etc...
 
 We could keep going. Infix operators are an obvious one, although it's rather tricky to get precedence working. I think it can be done, but it's late and I haven't had time to try it yet.

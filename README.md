@@ -63,7 +63,7 @@ Of course, we could also define a *macro* called `short-fn` -- it is a macro in 
 
 It does this by returning not an abstract syntax tree, but a first-class macaron. That macaron will be expanded -- just like any other macaron -- in the position it appears in its parent's form. So it's a two-step process:
 
-```
+```janet
 (x (short-fn f))
 (x <macaron>)
 (f x)
@@ -79,7 +79,7 @@ Where did the `f` go? It was smuggled into the parent in the closure of the anon
 
 That will go through the following expansions:
 
-```
+```janet
 (x (short-fn f))
 (x <macaron>)
 (x pipe f)
@@ -87,7 +87,7 @@ That will go through the following expansions:
 
 We could then define a macaron called `pipe`, if we wanted to, to do the actual rearranging. But in reality, we can just return another first-class macaron directly:
 
-```
+```janet
 (def pipe (macaron [& before] [& after]
   (def subject (case (length before)
     0 (error "nothing to pipe!")
@@ -136,7 +136,7 @@ Janet has `def` of course, so this sounds ridiculous. But you don't *need* `def`
 
 Once again, the expansion goes like this:
 
-```
+```janet
 (do (def x 1) (+ x 1))
 (do <macaron> (+ x 1))
 (do (let [x 1] (+ x 1)))

@@ -2,17 +2,19 @@
 
 Macro spaghetti code.
 
-(A macaron is a little syntax sugar sandwich.)
+[I wrote a blog post about this](https://ianthehenry.com/posts/generalized-macros/) which explains the idea much more clearly than this readme does. Think of this like an early, primordial version of that post.
+
+(A macaron is a little syntax sugar sandwich. And macaroni is, of course, the plural of macaron.)
 
 This is an experimental alternative to `defmacro`. This proof-of-concept is implemented in [Janet](https://janet-lang.org), but the technique could work in any language with a similar macro system.
 
 A macaron is a generalization of a regular macro, with three differences:
 
 - A macro can only appear at the beginning of a form. A macaron can appear anywhere inside a form.
+- Macarons have two argument lists: the nodes "to the left" and the nodes "to the right" of the macaron.
 - Macarons are first-class values, and macarons can return other macarons. This allows macarons to not only rewrite themselves, but also the forms in which they appear.
-- Macarons are dynamically scoped, so you can have macarons define private helper macarons for to use while expanding their arguments. (not yet implemented in any useful form)
 
-Macarons have two argument lists: the arguments "to the left" of the macro, and the arguments "to the right." For example, a macaron called `foo` would receive the following arguments if it appeared in the following positions:
+For example, a macaron called `foo` would receive the following arguments if it appeared in the following positions:
 
 ```janet
 (foo x y) # [] ['x 'y]

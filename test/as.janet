@@ -12,12 +12,12 @@
 (test-macaron
   (defn add [xs ys]
     (as x mapcat xs)
-    (as y mapcat ys)
+    (as y map ys)
     (+ x y))
   (defn
     add
     [xs ys]
-    (mapcat (fn [x] (mapcat (fn [y] (+ x y)) ys)) xs)))
+    (mapcat (fn [x] (map (fn [y] (+ x y)) ys)) xs)))
 
 (test-macaron (pp (as x map [1 2 3]) (+ x 1))
   (pp (map (fn [x] (+ x 1)) [1 2 3])))

@@ -54,6 +54,5 @@
 (defmacro macaroni [form]
   (expand form))
 
-(defmacro test-macaroni [exp & args]
-  (with-map (dyn *macro-form*)
-    ~(test-macro ,(with-map exp ~(macaroni ,exp)) ,;args)))
+(defmacro* test-macaron [exp & args]
+    ~(test-macro (as-macro ,macaroni ,exp) ,;args))

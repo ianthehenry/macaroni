@@ -7,7 +7,7 @@
       ~(put ,table ,key ,;rights)
       ~(,;lefts (get ,table ,key) ,;rights))))
 
-(test-macaroni
+(test-macaron
   (do
     (set (get! tab :key) :value)
     (print (get! tab :key)))
@@ -23,13 +23,13 @@
 (defmacaron = [name] [value]
   ~(set ,name ,value))
 
-(test-macaroni (x = 1)
+(test-macaron (x = 1)
   (set x 1))
 
-(test-macaroni ((foo bar) = 1)
+(test-macaron ((foo bar) = 1)
   (set (foo bar) 1))
 
-(test-macaroni ((get! x :foo) = 1)
+(test-macaron ((get! x :foo) = 1)
   (set (get x :foo) 1))
 # :(
 

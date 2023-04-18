@@ -120,13 +120,13 @@ We could then define a macaron called `pipe`, if we wanted to, to do the actual 
 I find this syntax very useful, and I'm very pleased by how easy it is to implement as a macaron. From the tests, some examples of what this macaron does:
 
 ```janet
-(test-macaroni (x | f)
+(test-macaron (x | f)
   (f x))
 
-(test-macaroni (x 1 | f)
+(test-macaron (x 1 | f)
   (f (x 1)))
 
-(test-macaroni (x 1 | f 2 3 | g 4)
+(test-macaron (x 1 | f 2 3 | g 4)
   (g (f (x 1) 2 3) 4))
 ```
 
@@ -143,7 +143,7 @@ Janet has `def` of course, so this sounds ridiculous. But you don't *need* `def`
   (macaron [& lefts] [& rights]
     ~(,;lefts (let [,name ,value] ,;rights))))
 
-(test-macaroni (do (def x 1) (+ x 1))
+(test-macaron (do (def x 1) (+ x 1))
   (do
     (let
       [x 1]
@@ -179,7 +179,7 @@ By rewriting that to a `finally`:
   (macaron [& lefts] [& rights]
     ~(,;lefts (finally (do ,;rights) ,expr))))
 
-(test-macaroni
+(test-macaron
   (do
     (def f (file/open "foo.txt"))
     (defer (file/close f))

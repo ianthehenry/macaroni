@@ -5,7 +5,7 @@
   (macaron [& lefts] [& rights]
     ~(,;lefts (finally (do ,;rights) ,expr))))
 
-(test-macaroni
+(test-macaron
   (do
     (def f (file/open "foo.txt"))
     (defer (file/close f))

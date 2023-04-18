@@ -11,18 +11,18 @@
 
 (test-error (macex1 '(macaroni (+))) "nothing to add")
 
-(test-macaroni (1 + 2)
+(test-macaron (1 + 2)
   (@+ 1 2))
 
-(test-macaroni (1 + 2)
+(test-macaron (1 + 2)
   (@+ 1 2))
 
-(test-macaroni (+ 1)
+(test-macaron (+ 1)
   (fn
     [<1>]
     (@+ <1> 1)))
 
-(test-macaroni (1 +)
+(test-macaron (1 +)
   (fn
     [<1>]
     (@+ 1 <1>)))
